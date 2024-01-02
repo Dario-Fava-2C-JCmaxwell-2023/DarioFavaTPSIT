@@ -1,0 +1,109 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+  <style>
+   
+    #container {
+      position: absolute;
+      bottom: 8px;
+      right: 16px;
+      font-size: 18px;
+      width: 200px;
+      height: 150px;
+      background-color: blue;
+      border-radius: 15px;
+
+    }
+    #destra {
+      position: absolute;
+      bottom: 65px;
+      right: 30px;
+      font-size: 18px;
+      background-color: yellow;
+      border-radius: 15px;
+    }
+    #sinistra {
+      position: absolute;
+      bottom: 65px;
+      left: 30px;
+      font-size: 18px;
+      background-color: yellow;
+      border-radius: 15px;
+     }
+    #alto {
+      position: absolute;
+      top: 30px;
+      left: 65px;
+      font-size: 18px;
+      background-color: yellow;
+      border-radius: 15px;
+    }
+    #basso {
+    position: absolute;
+    top: 85px;
+    left: 65px;
+    font-size: 18px;
+    background-color: yellow;
+      border-radius: 15px;
+    }
+    
+    
+    #palla {
+      height: 250px;
+      width: 200px;
+      position: absolute;
+
+    }
+   
+    
+    button {
+      background-color: blue;
+      heigth: 70px;
+      width: 70px;
+    }  
+
+  </style>
+<body>
+  <img id="palla" src="https://www.sigmapubblicita.it/905-thickbox_default/03057-pallone-da-calcio-antistress.jpg">
+<div id="container">
+<button id="sinistra" onclick="moveImage('left')">sinistra</button>
+<button id="alto"onclick="moveImage('up')">alto</button>
+<button id="destra" onclick="moveImage('right')">destra</button>
+<button id="basso" onclick="moveImage('down')"> basso</button>
+</div>
+</body>
+  <script>
+    const movingImage = document.getElementById('palla');
+
+    function moveImage(direction) {
+        const step = 10; // Adjust the step size as needed
+        let currentLeft = parseInt(getComputedStyle(movingImage).left) || 0;
+        let currentTop = parseInt(getComputedStyle(movingImage).top) || 0;
+
+        switch (direction) {
+            case 'up':
+                movingImage.style.top = `${currentTop - step}px`;
+                break;
+            case 'down':
+                movingImage.style.top = `${currentTop + step}px`;
+                break;
+            case 'left':
+                movingImage.style.left = `${currentLeft - step}px`;
+                break;
+            case 'right':
+                movingImage.style.left = `${currentLeft + step}px`;
+                break;
+            default:
+                break;
+        }
+    }
+    </script>
+
+</html>
+
