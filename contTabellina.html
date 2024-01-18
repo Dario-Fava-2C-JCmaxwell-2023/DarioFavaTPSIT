@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contatore e Tabelline</title>
+  
+</head>
+<body>
+    <script>
+        var contatore = 1;
+    
+        function avviaContatore() {
+          var intervallo = setInterval(function() {
+            if (contatore <= 5) {
+              console.log(contatore);
+              contatore++;
+            } else {
+              clearInterval(intervallo);
+              stampaTabelline();
+            }
+          }, 1000);
+        }
+    
+        function stampaTabelline() {
+          var tabellineDiv = document.getElementById('tabellineDiv');
+          tabellineDiv.innerHTML = '';
+    
+          for (var i = 1; i <= 10; i++) {
+            tabellineDiv.innerHTML += '<h2>tabellina del ' + i + ':</h2>';
+            for (var j = 1; j <= 10; j++) {
+              tabellineDiv.innerHTML += i * j + '<br>';
+            }
+          }
+        }
+      </script>
+  <button onclick="avviaContatore()">avvia contatore</button>
+
+  <div id="tabellineDiv"></div>
+
+</body>
+</html>
