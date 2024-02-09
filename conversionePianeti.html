@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <label for="peso">Inserisci il tuo peso (kg): </label>
+        <input type="number" id="peso" name="peso" required>
+        <button type="button" onclick="calcolapeso()">Calcola</button>
+        <p id="risultati"></p>
+        <script>
+            function calcolapeso(){
+                let i;
+                let peso=document.getElementById("peso").value;
+                let final;
+                final=peso*3.71;
+                document.getElementById("risultati").innerHTML+="mercurio: "+final+"<br>";
+                final=peso*8.87;
+                document.getElementById("risultati").innerHTML+="venere: "+final+"<br>";
+                document.getElementById("risultati").innerHTML+="terra: "+peso+"<br>";
+                final=peso*3.71;
+                document.getElementById("risultati").innerHTML+="marte: "+final+"<br>";
+                final=peso*24.79;
+                document.getElementById("risultati").innerHTML+="giove: "+final+"<br>";
+                final=peso*10.44;
+                document.getElementById("risultati").innerHTML+="saturno: "+final+"<br>";
+                final=peso*8.87;
+                document.getElementById("risultati").innerHTML+="urano: "+final+"<br>";
+                final=peso*11.15;
+                document.getElementById("risultati").innerHTML+="nettuno: "+final+"<br>";
+                final=peso*0.6;
+                document.getElementById("risultati").innerHTML+="plutone: "+final+"<br>";
+            }
+        </script>
+    </body>
+</html>
