@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convertitore da kW a kWh</title>
+<style>
+    .container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        
+    }
+    input {
+        width: 100%;
+        padding: 8px;
+        margin: 0;
+        border: 1px solid #ccc;
+        
+    }
+    button {
+        background-color: orange;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Convertitore da kW a kWh</h2>
+    <label for="kwInput">Inserisci KW:</label>
+    <input type="number" id="kwInput" placeholder="Inserisci kW">
+    <button onclick="converti()">Converti</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function converti() {
+        const kW = document.getElementById('kwInput').value;
+        const ore = prompt("Inserisci il numero di ore:");
+
+        if (kW && ore) {
+            const kWh = kW * ore;
+            document.getElementById('result').innerHTML = `${kW} kW sono equivalenti a ${kWh} kWh quando utilizzati per ${ore} ore.`;
+        } else {
+            alert("Si prega di inserire valori validi.");
+        }
+    }
+</script>
+
+</body>
+</html>
