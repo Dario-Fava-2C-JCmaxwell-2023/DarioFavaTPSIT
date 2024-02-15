@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Conteggio Clic Immagini</title>
+<style>
+  .container {
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .container img {
+    width: 100%;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+
+<div id="containerImmagine1" class="container">
+  <img src="pizza.jpg" alt="Immagine 1">
+</div>
+
+<div id="containerImmagine2" class="container">
+  <img src="bomba.jpg" alt="Immagine 2">
+</div>
+
+<script>
+
+let conteggioClicImmagine1 = 0;
+let conteggioClicImmagine2 = 0;
+
+document.getElementById('containerImmagine1').onclick = function() {
+  conteggioClicImmagine1++;
+  console.log('Clic sull\'immagine 1: ' + conteggioClicImmagine1);
+};
+
+document.getElementById('containerImmagine2').onclick = function() {
+  conteggioClicImmagine2++;
+  console.log('Clic sull\'immagine 2: ' + conteggioClicImmagine2);
+};
+</script>
+
+</body>
+</html>
