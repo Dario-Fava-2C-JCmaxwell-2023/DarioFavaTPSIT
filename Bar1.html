@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Bar Virtuale</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: purple;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+}
+
+#listaDrink {
+    margin-top: 20px;
+}
+
+#ordini {
+    margin-top: 20px;
+}
+    </style>
+
+</head>
+<body>
+<button id="btnIstruzioni">Istruzioni</button>
+<button id="btnMenuDrink">Menu Drink</button>
+<button id="btnOrdini">Ordini</button>
+<div id="risposta"></div>
+<ul id="listaDrink" style="display:none;"></ul>
+<div id="ordini"></div>
+<script>
+
+document.getElementById('btnIstruzioni').addEventListener('click', function() {
+    document.getElementById('risposta').textContent = "Ciao, sono un chatbot pronto per servirti, premi il secondo bottone per vedere i drink disponibili";
+    document.getElementById('listaDrink').style.display = 'none';
+});
+
+document.getElementById('btnMenuDrink').addEventListener('click', function() {
+    const listaDrink = document.getElementById('listaDrink');
+    listaDrink.innerHTML = '<li>Mojito</li><li>Margarita</li><li>Negroni</li><li>CocaCola</li><li>Sprite</li><li>Sanbucone Molinari</li>';
+    listaDrink.style.display = 'block';
+});
+
+document.getElementById('btnOrdini').addEventListener('click', function() {
+    document.getElementById('risposta').textContent = "Qual è il tuo ordine?";
+    document.getElementById('listaDrink').style.display = 'none';
+    
+});
+
+
+</script>
+
+
+
+
+</body>
+</html>
