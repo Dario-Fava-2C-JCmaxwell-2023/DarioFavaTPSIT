@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            #button{
+                position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <label for="input">Inserisci un numero</label>
+        <input type="number" id="input">
+
+
+
+
+        <button id="button" onclick="calcolo1()">Calcolo 1</button>
+       
+        <button id="button" onclick="calcolo2()">Calcolo 2</button>
+       
+        <button id="button" onclick="calcolo3()">Calcolo 3</button>
+       
+
+
+        <div id="outputContainer"></div>
+   
+        <script>
+           
+           function calcolo1(){
+                let input=document.getElementById("input").value;
+                let risultato1 = input+2;
+                outputContainer.innerHTML += `<p>${risultato1}</p>`;
+            }
+
+
+            function calcolo2(){
+                let input=document.getElementById("input").value;
+                let risultato2 = input+3;
+                outputContainer.innerHTML += `<p>${risultato2}</p>`;
+            }
+
+
+
+
+            function calcolo3(){
+                let input=document.getElementById("input").value;
+                let risultato3 = input+7;
+                outputContainer.innerHTML += `<p>${risultato3}</p>`;
+            }
+
+
+        </script>
+    </body>
+</html>
+
