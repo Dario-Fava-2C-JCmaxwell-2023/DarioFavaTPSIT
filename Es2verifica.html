@@ -5,54 +5,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <style>
-            #button{
+            .button{
                 position: relative;
             }
         </style>
     </head>
     <body>
         <label for="input">Inserisci un numero</label>
-        <input type="number" id="input">
+        <input type="number" id="input" value="0">
 
-
-
-
-        <button id="button" onclick="calcolo1()">Calcolo 1</button>
+        <button class="button" onclick="calcolo1()">Calcolo 1</button>
        
-        <button id="button" onclick="calcolo2()">Calcolo 2</button>
+        <button class="button" onclick="calcolo2()">Calcolo 2</button>
        
-        <button id="button" onclick="calcolo3()">Calcolo 3</button>
-       
+        <button class="button" onclick="calcolo3()">Calcolo 3</button>
 
-
-        <div id="outputContainer"></div>
+        <div id="outputContainer">0</div>
    
         <script>
-           
-           function calcolo1(){
-                let input=document.getElementById("input").value;
-                let risultato1 = input+2;
-                outputContainer.innerHTML += `<p>${risultato1}</p>`;
-            }
+            
+            let accumulatore = parseInt(document.getElementById("outputContainer").innerText);
 
+            function calcolo1(){
+                let input = parseInt(document.getElementById("input").value);
+                accumulatore += input + 2;
+                document.getElementById("outputContainer").innerText = accumulatore; 
+            }
 
             function calcolo2(){
-                let input=document.getElementById("input").value;
-                let risultato2 = input+3;
-                outputContainer.innerHTML += `<p>${risultato2}</p>`;
+                let input = parseInt(document.getElementById("input").value);
+                accumulatore += input + 3; 
+                document.getElementById("outputContainer").innerText = accumulatore;
             }
-
-
-
 
             function calcolo3(){
-                let input=document.getElementById("input").value;
-                let risultato3 = input+7;
-                outputContainer.innerHTML += `<p>${risultato3}</p>`;
+                let input = parseInt(document.getElementById("input").value);
+                accumulatore += input + 7; 
+                document.getElementById("outputContainer").innerText = accumulatore; 
             }
-
-
         </script>
     </body>
 </html>
-
