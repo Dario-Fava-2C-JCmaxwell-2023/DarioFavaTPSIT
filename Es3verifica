@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Calcolo area</title>
+<style>
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+</style>
+</head>
+<body>
+<h1>Calcola area</h1>
+
+
+<label for="inputRaggio">Raggio: </label>
+<input type="number" id="inputRaggio">
+
+
+
+
+<button onclick="calcolaArea()">Calcola</button>
+<div id="outputContainer"></div>
+<script>
+
+
+ 
+function calcolaArea() {
+const raggio = (document.getElementById('inputRaggio').value);
+
+
+
+
+const outputContainer = document.getElementById('outputContainer');
+outputContainer.innerHTML = '';
+ 
+const area = (raggio*raggio)*3.14;
+
+
+
+
+outputContainer.innerHTML += `<p>area:  ${area}</p>`;
+
+
+
+
+
+
+}
+</script>
+</body>
+</html>
+
+
