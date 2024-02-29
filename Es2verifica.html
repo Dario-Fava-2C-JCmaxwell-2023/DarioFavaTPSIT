@@ -20,28 +20,32 @@
        
         <button class="button" onclick="calcolo3()">Calcolo 3</button>
 
-        <div id="outputContainer">0</div>
+        <div id="outputContainer1">0</div>
+        <div id="outputContainer2">0</div>
+        <div id="outputContainer3">0</div>
    
         <script>
             
-            let accumulatore = parseInt(document.getElementById("outputContainer").innerText);
+            let accumulatore1 = parseInt(document.getElementById("outputContainer1").innerText);
+            let accumulatore2 = parseInt(document.getElementById("outputContainer2").innerText);
+            let accumulatore3 = parseInt(document.getElementById("outputContainer3").innerText);
 
             function calcolo1(){
                 let input = parseInt(document.getElementById("input").value);
-                accumulatore += input + 2;
-                document.getElementById("outputContainer").innerText = accumulatore; 
+                accumulatore1 += input + 2;
+                document.getElementById("outputContainer1").innerText = accumulatore1; 
             }
 
             function calcolo2(){
                 let input = parseInt(document.getElementById("input").value);
-                accumulatore += input + 3; 
-                document.getElementById("outputContainer").innerText = accumulatore;
+                accumulatore2 += input + 3; 
+                document.getElementById("outputContainer2").innerText = accumulatore2;
             }
 
             function calcolo3(){
                 let input = parseInt(document.getElementById("input").value);
-                accumulatore += input + 7; 
-                document.getElementById("outputContainer").innerText = accumulatore; 
+                accumulatore3 += input + 7; 
+                document.getElementById("outputContainer3").innerText = accumulatore3; 
             }
         </script>
     </body>
