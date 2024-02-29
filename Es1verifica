@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Calcolo IMC</title>
+<style>
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+</style>
+</head>
+<body>
+<h1>Calcola IMC</h1>
+
+
+<label for="inputPeso">Inserisci il peso in kg: </label>
+<input type="number" id="inputPeso">
+
+
+<label for="inputAltezza">Inserisci la altezza in metri: </label>
+<input type="number" id="inputAltezza">
+
+
+<button onclick="calcolaIMC()">Calcola</button>
+<div id="outputContainer"></div>
+<script>
+
+
+ 
+function calcolaIMC() {
+const peso = (document.getElementById('inputPeso').value);
+const altezza = (document.getElementById('inputAltezza').value);
+
+
+const outputContainer = document.getElementById('outputContainer');
+outputContainer.innerHTML = '';
+ 
+const IMC = peso/ (altezza*altezza);
+
+
+
+
+outputContainer.innerHTML += `<p>IMC ${IMC}</p>`;
+
+
+if(IMC<18.5) {
+    outputContainer.innerHTML += `<p> Sottopeso</p>`;
+}
+
+
+if(IMC>=18.5 && IMC<25) {
+    outputContainer.innerHTML += `<p>Normopeso</p>`;
+}
+
+
+if(IMC>=25 && IMC<30) {
+    outputContainer.innerHTML += `<p>Sovrappeso</p>`;
+}
+
+
+if(IMC>=30) {
+    outputContainer.innerHTML += `<p>Obesità</p>`;
+}
+
+
+
+
+
+
+
+
+}
+</script>
+</body>
+</html>
+
+
