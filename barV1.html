@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bar Versione 1</title>
+<style>
+ 
+ .button-container button {
+    margin: 5px;
+    padding: 10px;
+  }
+  
+</style>
+</head>
+<body>
+<h2>Bar Versione 1</h2>
+<div class="button-container">
+  <button id="count">Conta Elementi</button>
+  <button id="add">Aggiungi</button>
+  <button id="delete">Elimina</button>
+  <button id="buy">Compra</button>
+</div>
+<div id="orders">
+  <h3>Ordini:</h3>
+  <ul id="orderList"></ul>
+</div>
+
+<script>
+  let drinks = ['Caffe', 'Te', 'Succo', 'Acqua', 'Cocacola', 'Sprite'];
+  let orders = [];
+
+ 
+  function addOrder(orderIndex) {
+    if (orderIndex >= 0 && orderIndex < drinks.length) {
+      orders.push(drinks[orderIndex]);
+      renderOrders();                                        //funzione per aggiungere un ordine
+    } else {
+      console.log("Indice ordine non valido.");
+    }
+  }
+
+  
+  function deleteLastOrder() {
+    orders.pop();                         //funzione per eliminare l'ultimo ordine
+    renderOrders();
+  }
+
+  
+  function countOrders() {
+    alert("Numero di ordini: " + orders.length);      //funzione per contare gli elementi
+  }
+
+  
+  function buy() {
+    alert("Acquisto completato. Numero di ordini: " + orders.length);        //funzione per effettuare l'acquisto
+    orders = []; 
+    renderOrders();
+  }
+
+  
+  function renderOrders() {
+    const orderList = document.getElementById('orderList');       //funzione per visualizzare gli ordini
+    orderList.innerHTML = ''; 
+
+    orders.forEach((order, index) => {
+      let listItem = document.createElement('li');
+      listItem.textContent = order;
+      orderList.appendChild(listItem);
+    });
+  }
+
+  document.getElementById('count').addEventListener('click', countOrders);
+  document.getElementById('add').addEventListener('click', () => addOrder(Math.floor(Math.random() * drinks.length))); 
+  document.getElementById('delete').addEventListener('click', deleteLastOrder);
+  document.getElementById('buy').addEventListener('click', buy);
+</script>
+</body>
+</html>
