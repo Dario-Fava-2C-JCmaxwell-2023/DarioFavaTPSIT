@@ -20,6 +20,7 @@
       <div class="col-md-8 text-center">
         <h2 class="mb-4">Generatore di Frasi</h2>
         <button onclick="generaFrase()" class="btn btn-primary btn-lg">Genera una frase</button>
+        <button onclick="generaFrase2()" class="btn btn-primary btn-lg">Genera tutte le possibili frasi</button>
         <div class="mt-4 p-3 bg-light border rounded frase-stile"> 
           <p id="fraseGenerata"></p>
         </div>
@@ -43,8 +44,29 @@
         
         document.getElementById("fraseGenerata").innerText = frase;
     }
+
+    function generaFrase2() {
+        let frasi = "";
+    for (let soggetto of soggetti) {
+        for (let verbo of verbi) {
+            for (let complementoOggetto of complementiOggetti) {
+                for (let aggettivo of aggettivi) {
+                    const frase = `${soggetto} ${verbo} ${complementoOggetto} ${aggettivo}<br>`;
+                    frasi += frase;
+                }
+            }
+        }
+    }
+    document.getElementById("fraseGenerata").innerHTML = frasi;
+    }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+
+
+
+   
