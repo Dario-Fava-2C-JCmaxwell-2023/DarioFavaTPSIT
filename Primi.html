@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica Numero Primo</title>
+
+    <style>
+
+
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+
+
+        h1 {
+            color: #0066cc;
+        }
+
+
+
+        button {
+            background-color: #28a745;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+
+        button:hover {
+            background-color: #218838;
+        }
+
+
+
+        #output {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            padding: 10px;
+            border: 2px solid #cc0000;
+            display: inline-block;
+            background-color: #e9f5ff;
+            border-radius: 8px;
+        }
+    </style>
+
+    
+    
+    <script>
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        function generatore() {
+            let numrand = Math.floor(Math.random() * 100) + 1;
+
+            let outputBox = document.getElementById('output');
+
+            if (isPrime(numrand)) {
+                outputBox.innerHTML = `Il numero ${numrand} è primo.`;
+            } else {
+                outputBox.innerHTML = `Il numero ${numrand} non è primo.`;
+            }
+        }
+    </script>
+
+
+</head>
+
+
+<body>
+
+    <h1>Verifica Numero Primo</h1>
+    <button onclick="generatore()">Genera</button><br>
+
+    <div id="output"></div>
+
+</body>
+</html>
