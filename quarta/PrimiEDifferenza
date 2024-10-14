@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numero Casuale</title>
+    <style>
+
+
+        .box {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid black;
+            margin: 20px auto;
+            font-size: 20px;
+        }
+
+
+
+        .box1 {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgb(255, 0, 0);
+            margin: 20px auto;
+            font-size: 20px;
+        }
+
+
+
+        .box2 {
+            width: 200px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid gray;
+            background-color: lightgray;
+            margin: 20px auto;
+            font-size: 20px;
+        }
+
+        .button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+    <div id="result" class="box"></div>
+    <div id="evenOdd" class="box1"></div>
+    <div id="difference" class="box2"></div>
+    <button class="button" onclick="updateNumber()">Rigenera Numero</button>
+    <script>
+        let firstRandomNumber;
+
+        function generateRandomNumber() {
+            return Math.floor(Math.random() * 100) + 1;
+        }
+
+        function checkEvenOdd(num) {
+            return num % 2 === 0 ? 'pari' : 'dispari';
+        }
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        function updateNumber() {
+            const secondRandomNumber = generateRandomNumber();
+
+            if (firstRandomNumber === undefined) {
+                firstRandomNumber = generateRandomNumber();
+            }
+
+            const resultTextFirst = `Primo numero= ${firstRandomNumber}`;
+            const evenOddTextFirst = `Primo numero= ${checkEvenOdd(firstRandomNumber)} - ${isPrime(firstRandomNumber) ? 'è primo' : 'non è primo'}`;
+
+            const resultTextSecond = `Secondo numero= ${secondRandomNumber}`;
+            const evenOddTextSecond = `Secondo numero= ${checkEvenOdd(secondRandomNumber)} - ${isPrime(secondRandomNumber) ? 'è primo' : 'non è primo'}`;
+
+            const difference = Math.abs(firstRandomNumber - secondRandomNumber);
+            const differenceText = `La differenza è= ${difference}`;
+
+            document.getElementById('result').innerText = resultTextFirst + '\n' + resultTextSecond;
+            document.getElementById('evenOdd').innerText = evenOddTextFirst + '\n' + evenOddTextSecond;
+            document.getElementById('difference').innerText = differenceText;
+
+            firstRandomNumber = secondRandomNumber;
+        }
+        
+        updateNumber();
+    </script>
+</body>
+</html>
