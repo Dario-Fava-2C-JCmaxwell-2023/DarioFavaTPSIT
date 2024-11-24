@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2b2b2b;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url("sfondoBody.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .table {
+            display: grid;
+            grid-template-rows: 1fr 1.5fr 1fr;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 5px; /* Ridotto il gap */
+            width: 90%;
+            height: 90%;
+            border: 2px solid #444;
+            background-color: #008000;
+            border-radius: 10px;
+            padding: 10px;
+            justify-items: center;
+            align-items: center;
+            background-image: url("sfondoBlackJack.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .dealer,
+        .player,
+        .deck,
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .dealer {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background-color: #006400;
+            width: 700px;
+            height: 200px;
+        }
+
+        .deck {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: #006400;
+            width: 200px;
+            height: 100px;
+        }
+
+        .deck img {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .player {
+            grid-column: 2 / 3;
+            grid-row: 3 / 4;
+            background-color: #006400;
+            width: 700px;
+            height: 200px;
+        }
+
+
+        .controls {
+            grid-column: 1 / 4;
+            grid-row: 4 / 5;
+            background-color: #333;
+        }
+
+        .controls button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .controls button:hover {
+            background-color: #0056b3;
+        }
+
+          
+          @media (max-width: 768px) {
+            .table {
+                grid-template-rows: repeat(4, auto);
+                grid-template-columns: 1fr;
+                width: 95%;
+                height: auto;
+                gap: 15px;
+            }
+
+            .dealer,
+            .player {
+                width: 100%;
+                height: auto;
+                padding: 10px;
+            }
+
+            .deck {
+                width: 100px;
+                height: 75px;
+            }
+
+            .deck img {
+                width: 100%;
+                height: auto;
+            }
+
+            .controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .controls button {
+                width: 100%;
+                margin: 5px 0;
+                font-size: 1.2rem;
+            }
+        }
+
+        
+        @media (max-width: 480px) {
+            .controls button {
+                padding: 15px;
+            }
+
+            .dealer img,
+            .player img {
+                width: 80px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="table">
+
+        <div class="dealer" id="dealer"></div>
+        <div class="deck" id="deck">
+            <img src="pngMazzo.png" alt="Mazzo di carte" onclick="drawCard()">
+        </div>
+        <div class="player" id="player"></div>
+        <div class="controls" id="controls">
+            <button onclick="stand()">Stai</button>
+            <button onclick="resetGame()">Reset Gioco</button>
+        </div>
+
+        
+
+    </div>
+    <script>
+        const cuori = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+        const picche = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+        const fiori = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+        const quadri = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+        let carteGiocatore = [];
+        let carteBanco = [];
+        let mazzo = [];
+        resetGame();
+        function creaMazzo() {
+            const semi = ["cuori", "picche", "fiori", "quadri"];
+            mazzo = [];
+            for (const seme of semi) {
+                for (let valore = 1; valore <= 13; valore++) {
+                    mazzo.push({ seme, valore });
+                }
+            }
+        }
+        function pescaCarta() {
+            if (mazzo.length === 0) {
+                console.error("Il mazzo è vuoto!");
+                return null;
+            }
+            const indiceCarta = Math.floor(Math.random() * mazzo.length);
+            return mazzo.splice(indiceCarta, 1)[0];
+        }
+        function imgVisual(seme, valore) {
+            const nomeImg = `imgCarte/${seme}_${valore}.png`;
+            const imgElement = document.createElement("img");
+            imgElement.src = nomeImg;
+            imgElement.alt = `${valore} di ${seme}`;
+            imgElement.style.width = "120px";
+            imgElement.style.height = "170px";
+            return imgElement;
+        }
+        function drawCard() {
+            const semi = [cuori, picche, fiori, quadri];
+            const nomiSemi = ["cuori", "picche", "fiori", "quadri"];
+            const indiceSeme = Math.floor(Math.random() * semi.length);
+            const semeScelto = semi[indiceSeme];
+            const nomeSemeScelto = nomiSemi[indiceSeme];
+            const indiceCarta = Math.floor(Math.random() * semeScelto.length);
+            const cartaPescata = semeScelto.splice(indiceCarta, 1)[0];
+            let nomeCarta;
+
+            if (cartaPescata == 1) {
+                nomeCarta = "Asso";
+            } else if (cartaPescata == 11) {
+                nomeCarta = "Fante";
+            } else if (cartaPescata == 12) {
+                nomeCarta = "Regina";
+            } else if (cartaPescata == 13) {
+                nomeCarta = "Re";
+            } else {
+                nomeCarta = cartaPescata;
+            }
+            console.log(`Hai pescato il ${nomeCarta} di ${nomeSemeScelto}!`);
+            const playerDiv = document.getElementById("player");
+            const nuovaCartaImg = imgVisual(nomeSemeScelto, cartaPescata);
+            playerDiv.appendChild(nuovaCartaImg);
+            carteGiocatore.push({seme :nomeSemeScelto,valore: cartaPescata});
+            if (carteGiocatore.length == 2) {
+                controllaBlackjack();
+            }
+            controllaPunteggio();
+        }
+
+
+        function calcolaPunteggio(carte) {
+            let totale = 0;
+            let assi = 0;
+
+             for (let carta of carte) {
+                const valore = carta.valore; 
+                    if (valore === 1) {
+                            assi++;
+                            totale += 11;
+                    } else if (valore >= 11) {
+                            totale += 10;
+                    } else {
+                        totale += valore;
+                        }
+                    }
+
+                    
+                    while (totale > 21 && assi > 0) {
+                        totale -= 10;
+                        assi--;
+                    }
+                    return totale;
+                }
+
+        function controllaBlackjack() {
+            const [primaCarta, secondaCarta] = carteGiocatore;
+            const blackjack =
+                (primaCarta == 1 && (secondaCarta == 10 || secondaCarta >= 11)) ||
+                (secondaCarta == 1 && (primaCarta == 10 || primaCarta >= 11));
+            if (blackjack) {
+                console.log("Blackjack! Hai vinto immediatamente!");
+                setTimeout(resetGame, 3000);
+            }
+            const [primaCarta2, secondaCarta2] = carteBanco;
+            const blackjack2 =
+                (primaCarta2 == 1 && (secondaCarta2 == 10 || secondaCarta2 >= 11)) ||
+                (secondaCarta2 == 1 && (primaCarta2 == 10 || primaCarta2 >= 11));
+            if (blackjack2) {
+                console.log("Blackjack! Hai vinto immediatamente!");
+                setTimeout(resetGame, 3000);
+            }
+        }
+        function controllaPunteggio() {
+            const punteggio = calcolaPunteggio(carteGiocatore);
+            if (punteggio > 21) {
+                console.log("Hai superato 21 punti! Hai perso.");
+                setTimeout(resetGame, 3000);
+            }
+        }
+        function giocaBanco() {
+            const semi = [cuori, picche, fiori, quadri];
+            const nomiSemi = ["cuori", "picche", "fiori", "quadri"];
+            const indiceSeme = Math.floor(Math.random() * semi.length);
+            const semeScelto = semi[indiceSeme];
+            const nomeSemeScelto = nomiSemi[indiceSeme];
+            const indiceCarta = Math.floor(Math.random() * semeScelto.length);
+            const cartaPescata = semeScelto.splice(indiceCarta, 1)[0];
+            let nomeCarta;
+
+            if (cartaPescata == 1) {
+                nomeCarta = "Asso";
+            } else if (cartaPescata == 11) {
+                nomeCarta = "Fante";
+            } else if (cartaPescata == 12) {
+                nomeCarta = "Regina";
+            } else if (cartaPescata == 13) {
+                nomeCarta = "Re";
+            } else {
+                nomeCarta = cartaPescata;
+            }
+            console.log(`Il banco ha pescato il ${nomeCarta} di ${nomeSemeScelto}!`);
+            const dealerDiv = document.getElementById("dealer");
+            if (carteBanco.length == 0) {
+                const coperta = document.createElement("img");
+                coperta.src = "imgCarte/back.png";
+                coperta.alt = "Carta coperta";
+                coperta.style.width = "120px";
+                coperta.style.height = "170px";
+                coperta.id = "cope";
+                dealerDiv.appendChild(coperta);
+            } else {
+                const nuovaCartaImg = imgVisual(nomeSemeScelto, cartaPescata);
+                dealerDiv.appendChild(nuovaCartaImg);
+            }
+            carteBanco.push({ seme: nomeSemeScelto, valore: cartaPescata });
+            if (carteBanco.length == 2) {
+                controllaBlackjack();
+            }
+        }
+
+        function confrontaPunteggi() {
+                const punteggioGiocatore = calcolaPunteggio(carteGiocatore);
+                const punteggioBanco = calcolaPunteggio(carteBanco);
+
+                console.log(`Punteggio giocatore: ${punteggioGiocatore}`);
+                console.log(`Punteggio banco: ${punteggioBanco}`);
+
+                if (punteggioGiocatore > 21) {
+                    alert("Hai perso!");
+                } else if (punteggioBanco > 21) {
+                    alert("Il banco ha sballato! Hai vinto!");
+                } else if (punteggioGiocatore > punteggioBanco) {
+                    alert("Hai vinto!");
+                } else if (punteggioGiocatore < punteggioBanco) {
+                    alert("Il banco ha vinto!");
+                } else {
+                    alert("Pareggio!");
+                }
+
+                
+                
+            setTimeout(resetGame, 3000);
+
+
+
+        }
+
+
+       
+
+        
+
+        function resetGame() {
+            console.log("Il gioco è stato resettato!");
+            document.getElementById("player").innerHTML = "";
+            document.getElementById("dealer").innerHTML = "";
+            carteGiocatore = [];
+            carteBanco = [];
+            creaMazzo();
+            start();
+        }
+        function scopri() {
+            const coperta = document.getElementById("cope");
+            if (coperta && carteBanco.length > 1) {
+                const primaCarta = carteBanco[0];
+                coperta.src = `imgCarte/${primaCarta.seme}_${primaCarta.valore}.png`;
+                coperta.alt = `${primaCarta.valore} di ${primaCarta.seme}`;
+            }
+        }
+
+        function stand() {
+            const punteggio = calcolaPunteggio(carteGiocatore);
+            console.log(`Hai deciso di stare con ${punteggio} punti.`);
+            scopri();
+            setTimeout(confrontaPunteggi, 3000);
+        }
+        function start() {
+            giocaBanco();
+            giocaBanco();
+            console.log(`Il banco ha completato la sua mano.`);
+        }
+    </script>
+</body>
+
+</html>
